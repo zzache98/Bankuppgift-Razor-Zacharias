@@ -55,27 +55,51 @@
                 </th>
             </tr>
         </thead>
-       @* <tbody>
-            @foreach (var item in Model.Customer)
+        <tbody>
+            
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Id)
+                        @Model.Customer.Id
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Givenname)
+                        @Model.Customer.Givenname
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Surname)
+                        @Model.Customer.Surname
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Balance)
+                        @Model.Customer.Streetaddress
+                    </td>
+                    <td>
+                        @Model.Customer.City
+                    </td>
+                    <td>
+                        @Model.Customer.Zipcode
+                    </td>
+                    <td>
+                        @Model.Customer.Country
+                    </td>
+                    <td>
+                        @Model.Customer.CountryCode
+                    </td>
+                    <td>
+                        @Model.Customer.TelephoneCountryCode
+                    </td>
+                    <td>
+                        @Model.Customer.Telephone
+                    </td>
+                    <td>
+                        @Model.Customer.EmailAddress
+                    </td>
+                    <td>
+                        @Model.Customer.Birthday
                     </td>
                 </tr>       
             }
         </tbody>
            
-    </table>*@
+    </table>
 
  <table class="account-table">
         <thead>
