@@ -1,0 +1,82 @@
+﻿@page
+@model BankStartWeb.Pages.CustomerModel
+@{
+    ViewData["Title"] = "Customer";
+}
+
+<form method="GET">
+    <input asp-for="@Model.SearchWord"  />
+    <input type="submit" value="Sök" />
+</form>
+
+
+
+<table class="table">
+    
+    <tr>
+        <td>Id 
+            <a asp-page="/Customer" asp-route-searchWord="@Model.SearchWord"  asp-route-col="Id" asp-route-order="asc"  >
+                <i class='bx bx-sort-a-z'></i>  </a> 
+            <a asp-page="/Customer" asp-route-searchWord="@Model.SearchWord" asp-route-col="Id" asp-route-order="desc" >    
+                <i class='bx bx-sort-z-a' ></i> </a>
+        </td>
+        <td>Givenname
+            <a asp-page="/Customer" asp-route-searchWord="@Model.SearchWord" asp-route-col="Customer.Givvenname" asp-route-order="asc" >
+                <i class='bx bx-sort-a-z'></i>  </a> 
+            <a asp-page="/Customer" asp-route-searchWord="@Model.SearchWord" asp-route-col="Customer.Givvenname" asp-route-order="desc" >    
+                <i class='bx bx-sort-z-a' ></i> </a>
+        </td>
+        <td>Surname
+            <a asp-page="/Customer" asp-route-searchWord="@Model.SearchWord" asp-route-col="Customer.Surname" asp-route-order="asc" >
+                <i class='bx bx-sort-a-z'></i>  </a> 
+            <a asp-page="/Customer" asp-route-searchWord="@Model.SearchWord" asp-route-col="Customer.Surname" asp-route-order="desc" >    
+                <i class='bx bx-sort-z-a' ></i> </a>
+        </td>
+        <td>City
+            <a asp-page="/Customer" asp-route-searchWord="@Model.SearchWord" asp-route-col="Customer.City" asp-route-order="asc" >
+                <i class='bx bx-sort-a-z'></i>  </a> 
+            <a asp-page="/Customer" asp-route-searchWord="@Model.SearchWord" asp-route-col="Customer.City" asp-route-order="desc" >    
+                <i class='bx bx-sort-z-a' ></i> </a>
+        </td>
+    </tr>
+
+<tbody>
+@foreach (var item in Model.Customers)
+    {
+        <tr>
+            <td><a asp-route-id="@item.Id" asp-page="/CustomerInfo/CustomerDetails">Id</a></td>
+            <td>@item.Givenname</td>
+            <td>@item.Surname</td>
+            <td>@item.City</td>
+           
+        </tr>
+    }
+
+    <tr>
+        <td>
+            @if (Model.PageNo > 1)
+            {
+                <a asp-page="/Customer" asp-route-col="@Model.SortCol" asp-route-order="@Model.SortOrder"  asp-route-searchWord="@Model.SearchWord"   asp-route-pageno="@(Model.PageNo - 1)">Prev</a>
+            }
+        </td>
+        <td> Visar sidan @Model.PageNo av totalt @Model.TotalPageCount  </td>
+        <td>
+            @if (Model.PageNo < Model.TotalPageCount)
+            {
+                <a asp-page="/Customer" asp-route-col="@Model.SortCol" asp-route-order="@Model.SortOrder" asp-route-searchWord="@Model.SearchWord" asp-route-pageno="@(Model.PageNo + 1)">Next</a>
+            }
+        </td>
+    </tr>
+
+
+</tbody>
+
+</table>
+
+
+
+
+
+
+
+

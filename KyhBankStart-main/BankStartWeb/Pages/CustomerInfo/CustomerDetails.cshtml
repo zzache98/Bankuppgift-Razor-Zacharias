@@ -1,0 +1,126 @@
+﻿@page "{Id}"
+@model BankStartWeb.Pages.CustomerInfo.CustomerDetailsModel
+@{
+    ViewData["Title"] = "Customer Details";
+}
+
+<div class="row">  
+        <div class="col-6">  
+            <h2 class="text-info">Customers Details</h2>  
+        </div>  
+          
+    </div>  
+
+<table class="customer-table">
+      <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Given Name
+                </th>
+                <th>
+                    Surname
+                </th>
+                <th>
+                    Street Adress
+                </th>
+                <th>
+                    City
+                </th>
+                <th>
+                    Zipcode
+                </th>
+                <th>
+                    Country
+                </th>
+                <th>
+                    Country Code
+                </th>
+                <th>
+                    National Id
+                </th>
+                <th>
+                    Telephone Country Code
+                </th>
+                <th>
+                    Telephone
+                </th>
+                <th>
+                    Email Address
+                </th>
+                <th>
+                    Birthday
+                </th>
+            </tr>
+        </thead>
+       @* <tbody>
+            @foreach (var item in Model.Customer)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Givenname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Surname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                </tr>       
+            }
+        </tbody>
+           
+    </table>*@
+
+ <table class="account-table">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Account Type
+                </th>
+                <th>
+                    Account Created
+                </th>
+                <th>
+                    Account Balance
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Customer.Accounts)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                </tr>       
+            }
+        </tbody>
+        
+    </table>
+
+
+
+</div>
+<div>
+    <a asp-page="/CustomerInfo/EditCustomer" asp-route-id="@Model.Customer.Id">Edit</a> |
+    <a asp-page="/CustomerInfo/Customer">Back to List</a>
+</div>
+
