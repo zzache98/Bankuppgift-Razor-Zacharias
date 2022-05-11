@@ -3,148 +3,95 @@
 @{
     ViewData["Title"] = "Customer Details";
 }
+  
 
-<div class="row">  
-        <div class="col-6">  
-            <h2 class="text-info">Customers Details</h2>  
-        </div>  
+<div class="card">
+    <div class="card-header">
+        <h1>Kundinformation</h1>
+    </div>
+    <div class="card-body">  
+    <table class="customer-table">
           
-    </div>  
-
-<table class="customer-table">
-      <thead>
-            <tr>
-                <th>
-                    ID
-                </th>
-                <th>
-                    Given Name
-                </th>
-                <th>
-                    Surname
-                </th>
-                <th>
-                    Street Adress
-                </th>
-                <th>
-                    City
-                </th>
-                <th>
-                    Zipcode
-                </th>
-                <th>
-                    Country
-                </th>
-                <th>
-                    Country Code
-                </th>
-                <th>
-                    National Id
-                </th>
-                <th>
-                    Telephone Country Code
-                </th>
-                <th>
-                    Telephone
-                </th>
-                <th>
-                    Email Address
-                </th>
-                <th>
-                    Birthday
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            {
                 <tr>
-                    <td>
-                        @Model.Customer.Id
-                    </td>
-                    <td>
-                        @Model.Customer.Givenname
-                    </td>
-                    <td>
-                        @Model.Customer.Surname
-                    </td>
-                    <td>
-                        @Model.Customer.Streetaddress
-                    </td>
-                    <td>
-                        @Model.Customer.City
-                    </td>
-                    <td>
-                        @Model.Customer.Zipcode
-                    </td>
-                    <td>
-                        @Model.Customer.Country
-                    </td>
-                    <td>
-                        @Model.Customer.CountryCode
-                    </td>
-                    <td>
-                        @Model.Customer.TelephoneCountryCode
-                    </td>
-                    <td>
-                        @Model.Customer.Telephone
-                    </td>
-                    <td>
-                        @Model.Customer.EmailAddress
-                    </td>
-                    <td>
-                        @Model.Customer.Birthday
-                    </td>
-                </tr>       
-            }
-        </tbody>
-           
+                    <th>ID</th>
+                    <td>@Model.CustomerDetails.Id</td>
+                </tr>
+                <tr>
+                    <th>Full Name</th>
+                    <td>@Model.CustomerDetails.Name</td>
+                </tr>
+                <tr>
+                    <th>Street Address</th>
+                    <td>@Model.CustomerDetails.Streetaddress</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>@Model.CustomerDetails.City</td>
+                </tr>
+                <tr>
+                    <th>Zipcode</th>
+                    <td>@Model.CustomerDetails.Zipcode</td>
+                </tr>
+                <tr>
+                    <th>Country</th>
+                    <td>@Model.CustomerDetails.Country</td>
+                </tr>
+                <tr>
+                    <th>Country Code</th>
+                    <td>@Model.CustomerDetails.CountryCode</td>
+                </tr>
+                <tr>
+                    <th>National Id</th>
+                    <td>@Model.CustomerDetails.NationalId</td>
+                </tr>
+                <tr>
+                    <th>Telephone Country Code</th>
+                    <td>@Model.CustomerDetails.TelephoneCountryCode</td>
+                </tr>
+                <tr>
+                    <th>Telephone</th>
+                    <td>@Model.CustomerDetails.Telephone</td>
+                </tr>
+                <tr>
+                    <th>Email Address</th>
+                    <td>@Model.CustomerDetails.EmailAddress</td>
+                </tr>
+                <tr>
+                    <th>Birthday</th>
+                    <td>@Model.CustomerDetails.Birthday</td>
+                </tr>
     </table>
 
- <table class="account-table">
-        <thead>
-            <tr>
-                <th>
-                    ID
-                </th>
-                <th>
-                    Account Type
-                </th>
-                <th>
-                    Account Created
-                </th>
-                <th>
-                    Account Balance
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Customer.Accounts)
-            {
+    <hr />
+
+    <table class="account-table">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AccountType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Created)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Balance)
-                    </td>
-                </tr>       
-            }
-        </tbody>
-        
-    </table>
-
-
-
+                    <th>Account Id</th>
+                    <th>Account Type</th>
+                    <th>Created</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CustomerDetails.Accounts)
+                {
+                   <tr>
+                        <td><a asp-page="/Account/CustomerTransactionDetails" asp-route-id="@item.Id">@item.Id</a></td>
+                        <td>@item.AccountType</td>
+                        <td>@item.Created</td>
+                        <td>@item.Balance</td>
+                    </tr>      
+                }
+            </tbody>
+     </table>
+    </div>
 </div>
+
+
+
+
 <div>
-    <a asp-page="/CustomerInfo/EditCustomer" asp-route-id="@Model.Customer.Id">Edit</a> |
     <a asp-page="/CustomerInfo/Customer">Back to List</a>
 </div>
 

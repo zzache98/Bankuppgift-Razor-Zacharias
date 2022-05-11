@@ -3,7 +3,7 @@ using BankStartWeb.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 //var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection");;
@@ -17,14 +17,22 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddRazorPagesOptions(options =>
+{
+    options.Conventions.AuthorizeFolder("/Account");
+    options.Conventions.AuthorizeFolder("/CustomerInfo");
+});
 
-//builder.Services.AddTransient<ITransactionService, TransactionService, IWithdrawService, WithdrawService, IDepositService, DepositService>();
+
 builder.Services.AddTransient<DataInitializer>();
+builder.Services.AddTransient<IManageAccount, ManageAccount>();
+builder.Services.AddTransient<IUpdateAccount, UpdateAccount>();
+
 
 var app = builder.Build();
 

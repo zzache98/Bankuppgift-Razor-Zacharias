@@ -1,0 +1,20 @@
+﻿/** {
+    background: red !important;
+    border: 30px orange solid !important;
+}*/
+
+body {
+}
+/*.card {
+    margin: auto;
+}*/
+
+.customer-table {
+    justify-content: center !important;
+    
+}
+
+tr, td, th {
+    padding: 16px;
+}
+

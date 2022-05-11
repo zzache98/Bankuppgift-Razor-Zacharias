@@ -1,3 +1,4 @@
+using AutoMapper;
 using BankStartWeb.Data;
 using BankStartWeb.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
@@ -6,15 +7,17 @@ using Microsoft.EntityFrameworkCore;
 
 
 
-namespace BankStartWeb.Pages
+namespace BankStartWeb.Pages.CustomerInfo
 {
     public class CustomerModel : PageModel
     {
-        
-       
-        public CustomerModel(ApplicationDbContext context)
+        private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
+
+        public CustomerModel(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public string SortOrder { get; set; }
@@ -28,13 +31,14 @@ namespace BankStartWeb.Pages
 
         public string SearchWord { get; set; }
 
-        public List<CustomerViewModel> Customers { get; set; }
+        public List<CustomerViewModel> Customers { get; private set; }
 
-        private readonly ApplicationDbContext _context;
+        
 
         public class CustomerViewModel
         {
             public int Id { get; set; }
+            //public string Name { get; set; }
             public string Givenname { get; set; }
             public string Surname { get; set; }
             public string Streetaddress { get; set; }
@@ -49,8 +53,6 @@ namespace BankStartWeb.Pages
            
             public string EmailAddress { get; set; }
             public DateTime Birthday { get; set; }
-
-
         }
 
         
@@ -61,9 +63,6 @@ namespace BankStartWeb.Pages
             SortCol = col;
             SortOrder = order;
 
-            //NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            //DateSort = sortOrder == "Date" ? "date_desc" : "Date";
-            //CurrentFilter = searchString;
 
             IQueryable<Customer> customerIQ = from s in _context.Customers
                                               select s;
@@ -72,30 +71,16 @@ namespace BankStartWeb.Pages
 
             if (!String.IsNullOrEmpty(SearchWord))
             {
-                o = o.Where(ord => ord.Surname.Contains(SearchWord)
-                                             || ord.Givenname.Contains(SearchWord));
+                o = o.Where(ord => ord.Surname.ToLower().Contains(SearchWord.ToLower())
+                                             || ord.Givenname.ToLower().Contains(SearchWord.ToLower()) || ord.City.ToLower().Contains(SearchWord.ToLower()));
             }
 
-            //switch (sortOrder)
-            //{
-            //    case "name_desc":
-            //        customerIQ = customerIQ.OrderByDescending(s => s.Surname);
-            //        break;
-            //    default: 
-            //        customerIQ = customerIQ.OrderBy(s => s.Givenname);
-            //        break;
-
-            //}
-
-            
-
-            
 
             o = o.OrderBy(col,
                 order == "asc" ? ExtentionMethods.QuerySortOrder.Asc :
                     ExtentionMethods.QuerySortOrder.Desc);
 
-            //Customer = await customerIQ.AsNoTracking().ToListAsync();
+           
 
             var pageResult = o.GetPaged(PageNo, 50);
             TotalPageCount = pageResult.PageCount;

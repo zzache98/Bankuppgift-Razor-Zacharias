@@ -7,13 +7,12 @@
            Ok,
            BalanceIsTooLow,
            AmountIsNegative,
-           InsufficientFunds
+           AccountNotFound
         }
 
         ErrorCode Deposit(int accountId, decimal amount);
         ErrorCode WithDraw(int accountId, decimal amount);
-        ErrorCode Transfer(int accountId, decimal amount, int recieverId);
-
+        ErrorCode Transfer(int accountId, decimal amount, int receiverId);
 
     }
 }
